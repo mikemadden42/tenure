@@ -1,0 +1,56 @@
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        toolchain: [stable, beta, nightly]
+    steps:
+    - name: Install latest nightly
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: ${{ matrix.toolchain }}
+        override: true
+    - uses: actions/checkout@v2
+    - uses: Swatinem/rust-cache@v1
+    - name: Build
+      run: cargo build --verbose
+      continue-on-error: ${{ matrix.toolchain != 'stable' }}
+    - name: Run tests
+      run: cargo test --verbose
+      continue-on-error: ${{ matrix.toolchain != 'stable' }}
+
+  clippy:
+    name: clippy (ubuntu-latest, stable)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          components: clippy
+      - name: Checkout sources
+        uses: actions/checkout@v2
+      - uses: Swatinem/rust-cache@v1
+      - name: Cargo Clippy
+        run: cargo clippy -- -D warnings -A deprecated
+
+  fmt:
+    name: fmt (ubuntu-latest, stable)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install latest stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          components: rustfmt
+      - name: Checkout sources
+        uses: actions/checkout@v2
+      - name: Check Formatting
+        run: cargo fmt --all -- --check
