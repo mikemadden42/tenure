@@ -15,8 +15,8 @@ jobs:
       with:
         toolchain: ${{ matrix.toolchain }}
         override: true
-    - uses: actions/checkout@v2
-    - uses: Swatinem/rust-cache@v1
+    - uses: actions/checkout@v3
+    - uses: Swatinem/rust-cache@v2
     - name: Build
       run: cargo build --verbose
       continue-on-error: ${{ matrix.toolchain != 'stable' }}
@@ -35,8 +35,8 @@ jobs:
           override: true
           components: clippy
       - name: Checkout sources
-        uses: actions/checkout@v2
-      - uses: Swatinem/rust-cache@v1
+        uses: actions/checkout@v3
+      - uses: Swatinem/rust-cache@v2
       - name: Cargo Clippy
         run: cargo clippy -- -D warnings -A deprecated
 
@@ -51,6 +51,6 @@ jobs:
           override: true
           components: rustfmt
       - name: Checkout sources
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Check Formatting
         run: cargo fmt --all -- --check
