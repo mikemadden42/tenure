@@ -1,4 +1,3 @@
-extern crate chrono;
 use chrono::offset::{TimeZone, Utc};
 
 fn main() {
