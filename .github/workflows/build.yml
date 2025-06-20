@@ -7,22 +7,32 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os:
+          [
+            ubuntu-22.04,
+            ubuntu-24.04,
+            windows-2025,
+            windows-2022,
+            windows-2019,
+            macos-15,
+            macos-14,
+            macos-13,
+          ]
         toolchain: [stable, beta, nightly]
     steps:
-    - name: Install latest nightly
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: ${{ matrix.toolchain }}
-        override: true
-    - uses: actions/checkout@v3
-    - uses: Swatinem/rust-cache@v2
-    - name: Build
-      run: cargo build --verbose
-      continue-on-error: ${{ matrix.toolchain != 'stable' }}
-    - name: Run tests
-      run: cargo test --verbose
-      continue-on-error: ${{ matrix.toolchain != 'stable' }}
+      - name: Install latest nightly
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ matrix.toolchain }}
+          override: true
+      - uses: actions/checkout@v3
+      - uses: Swatinem/rust-cache@v2
+      - name: Build
+        run: cargo build --verbose
+        continue-on-error: ${{ matrix.toolchain != 'stable' }}
+      - name: Run tests
+        run: cargo test --verbose
+        continue-on-error: ${{ matrix.toolchain != 'stable' }}
 
   clippy:
     name: clippy (ubuntu-latest, stable)
