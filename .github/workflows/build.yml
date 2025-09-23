@@ -13,9 +13,9 @@ jobs:
             ubuntu-24.04,
             windows-2025,
             windows-2022,
+            macos-26,
             macos-15,
             macos-14,
-            macos-13,
           ]
         toolchain: [stable, beta, nightly]
     steps:
