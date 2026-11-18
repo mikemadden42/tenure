@@ -32,7 +32,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - name: Install 1.62 toolchain
-        uses: dtolnay/rust-toolchain@1.62
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: "1.62"
       - uses: Swatinem/rust-cache@v2
       # Cargo.lock uses lockfile v4, which cargo 1.62 can't read; resolve fresh.
       - name: Check
