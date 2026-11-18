@@ -1,6 +1,11 @@
 # tenure
-[![Build Status](https://travis-ci.org/mikemadden42/tenure.svg?branch=master)](https://travis-ci.org/mikemadden42/tenure)
+[![build](https://github.com/mikemadden42/tenure/actions/workflows/build.yml/badge.svg)](https://github.com/mikemadden42/tenure/actions/workflows/build.yml)
 
-Get the diff between two dates
+Count the days between a start date and today.
 
-MSRV: 1.61.0
+```sh
+cargo run              # days since 2020-07-06
+cargo run -- 2023-01-15
+```
+
+MSRV: 1.62
