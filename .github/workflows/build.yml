@@ -13,7 +13,7 @@ jobs:
         os: [ubuntu-24.04, windows-2025, macos-26]
         toolchain: [stable, beta, nightly]
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Install ${{ matrix.toolchain }} toolchain
         uses: dtolnay/rust-toolchain@master
         with:
@@ -30,7 +30,7 @@ jobs:
     name: msrv (ubuntu-latest, 1.62)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Install 1.62 toolchain
         uses: dtolnay/rust-toolchain@1.62
       - uses: Swatinem/rust-cache@v2
@@ -44,7 +44,7 @@ jobs:
     name: clippy (ubuntu-latest, stable)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Install stable toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -57,7 +57,7 @@ jobs:
     name: fmt (ubuntu-latest, stable)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Install stable toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
